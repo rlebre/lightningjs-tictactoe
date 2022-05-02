@@ -1,10 +1,12 @@
 import { Lightning, Utils } from '@lightningjs/sdk';
+import { FONT_FAMILY } from './constants/style';
 import Fallback from './views/Fallback';
+import Main from './views/Main';
 import Splash from './views/Splash';
 
 export default class App extends Lightning.Component {
   static getFonts() {
-    return [{ family: 'Roboto-Regular', url: Utils.asset('fonts/Roboto-Regular.ttf') }];
+    return [{ family: FONT_FAMILY, url: Utils.asset('fonts/Roboto-Regular.ttf') }];
   }
 
   static _template() {
@@ -17,6 +19,11 @@ export default class App extends Lightning.Component {
         type: Splash,
         signals: { loaded: true },
         alpha: 0
+      },
+      Main: {
+        type: Main,
+        alpha: 0,
+        signals: { select: 'menuSelect' }
       },
       Fallback: {
         type: Fallback,
@@ -41,7 +48,7 @@ export default class App extends Lightning.Component {
         }
 
         loaded() {
-          this._setState('Fallback');
+          this._setState('Main');
         }
       },
 
@@ -52,6 +59,24 @@ export default class App extends Lightning.Component {
 
         $exit() {
           this.tag('Fallback').setSmooth('alpha', 0);
+        }
+      },
+
+      class Main extends this {
+        $enter() {
+          this.tag('Main').patch({
+            smooth: { alpha: 1, y: 0 }
+          });
+        }
+
+        $exit() {
+          this.tag('Main').patch({
+            smooth: { alpha: 0, y: 100 }
+          });
+        }
+
+        _getFocused() {
+          return this.tag('Main');
         }
       }
     ];
