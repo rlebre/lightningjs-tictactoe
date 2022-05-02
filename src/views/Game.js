@@ -1,5 +1,6 @@
 import { Lightning } from '@lightningjs/sdk';
 import { FONT_FAMILY } from '../constants/style';
+import GameUtils from '../lib/GameUtils';
 
 export default class Game extends Lightning.Component {
   static _template() {
@@ -30,11 +31,15 @@ export default class Game extends Lightning.Component {
         ScoreBoard: {
           x: 100,
           y: 170,
+          text: { text: 'Score', fontSize: 29, fontFace: FONT_FAMILY },
+
           Player: {
+            y: 50,
             text: { text: 'Player 0', fontSize: 29, fontFace: FONT_FAMILY }
           },
+
           AI: {
-            y: 40,
+            y: 100,
             text: { text: 'Computer 0', fontSize: 29, fontFace: FONT_FAMILY }
           }
         }
@@ -42,7 +47,7 @@ export default class Game extends Lightning.Component {
       Notification: {
         x: 100,
         y: 170,
-        text: { fontSize: 70, fontFace: 'Regular' },
+        text: { fontSize: 70, fontFace: FONT_FAMILY },
         alpha: 0
       }
     };
@@ -69,35 +74,52 @@ export default class Game extends Lightning.Component {
   }
 
   _handleUp() {
-    console.log('up');
-    let idx = this._index;
+    let idx = this._playerIndex;
     if (idx - 3 >= 0) {
       this._setIndex(idx - 3);
     }
   }
 
   _handleDown() {
-    console.log('down');
-    let idx = this._index;
+    let idx = this._playerIndex;
     if (idx + 3 <= this._tiles.length - 1) {
       this._setIndex(idx + 3);
     }
   }
 
   _handleLeft() {
-    console.log('left');
-    let idx = this._index;
+    let idx = this._playerIndex;
     if (idx % 3) {
       this._setIndex(idx - 1);
     }
   }
 
   _handleRight() {
-    console.log('right');
-    const newIndex = this._index + 1;
+    const newIndex = this._playerIndex + 1;
     if (newIndex % 3) {
       this._setIndex(newIndex);
     }
+  }
+
+  _handleEnter() {
+    if (this._tiles[this._playerIndex] === 'e') {
+      if (this.place(this._playerIndex, 'X')) {
+        this._setState('Computer');
+      }
+    }
+  }
+
+  place(index, marker) {
+    this._tiles[index] = marker;
+    this.render(this._tiles);
+
+    const winner = GameUtils.getWinner(this._tiles);
+    if (winner) {
+      this._setState('End.Winner', [{ winner }]);
+      return false;
+    }
+
+    return true;
   }
 
   _setIndex(idx) {
@@ -107,7 +129,94 @@ export default class Game extends Lightning.Component {
         y: ~~(idx / 3) * 300 + 125
       }
     });
-    this._index = idx;
+    this._playerIndex = idx;
+  }
+
+  static _states() {
+    return [
+      class Computer extends this {
+        $enter() {
+          const position = GameUtils.AI(this._tiles);
+          if (position === -1) {
+            this._setState('End.Tie');
+            return false;
+          }
+
+          setTimeout(() => {
+            if (this.place(position, '0')) {
+              this._setState('');
+            }
+          }, ~~(Math.random() * 1200) + 200);
+
+          this.tag('PlayerPosition').setSmooth('alpha', 0);
+        }
+
+        _captureKey() {}
+
+        $exit() {
+          this.tag('PlayerPosition').setSmooth('alpha', 1);
+        }
+      },
+
+      class End extends this {
+        _handleEnter() {
+          this._reset();
+        }
+
+        $exit() {
+          this.patch({
+            Game: {
+              smooth: { alpha: 1 }
+            },
+            Notification: {
+              text: { text: '' },
+              smooth: { alpha: 0 }
+            }
+          });
+        }
+
+        static _states() {
+          return [
+            class Winner extends this {
+              $enter(_, { winner }) {
+                if (winner === 'X') {
+                  this._playerScore += 1;
+                } else {
+                  this._aiScore += 1;
+                }
+                this.patch({
+                  Game: {
+                    smooth: { alpha: 0 },
+                    ScoreBoard: {
+                      Player: { text: { text: `Player ${this._playerScore}` } },
+                      AI: { text: { text: `Computer ${this._aiScore}` } }
+                    }
+                  },
+                  Notification: {
+                    text: { text: `${winner === 'X' ? 'Player' : 'Computer'} wins (press enter to play again)` },
+                    smooth: { alpha: 1 }
+                  }
+                });
+              }
+            },
+
+            class Tie extends this {
+              $enter() {
+                this.patch({
+                  Game: {
+                    smooth: { alpha: 0 }
+                  },
+                  Notification: {
+                    text: { text: 'Tie (press enter to try again)' },
+                    smooth: { alpha: 1 }
+                  }
+                });
+              }
+            }
+          ];
+        }
+      }
+    ];
   }
 
   render(tiles) {
