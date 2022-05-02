@@ -12,7 +12,6 @@ module.exports = {
   ],
   rules: {
     quotes: [2, 'single', 'avoid-escape'],
-    semi: [2, 'never'],
     'no-extra-boolean-cast': 'off',
     'no-unused-vars': [
       1,
@@ -24,11 +23,13 @@ module.exports = {
     'prettier/prettier': [
       'error',
       {
-        trailingComma: true,
         singleQuote: true,
         tabWidth: 2,
-        semi: false,
-        printWidth: 100,
+        semi: true,
+        printWidth: 120,
+        trailingComma: "none",
+        arrowParens: "always",
+        quoteProps: "preserve"
       },
     ],
   },
