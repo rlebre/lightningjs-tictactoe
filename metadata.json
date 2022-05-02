@@ -1,0 +1,6 @@
+{
+  "name": "Tic Tac Toe",
+  "identifier": "com.ruilebre.tictactoe",
+  "version": "1.0.0",
+  "icon": "./static/icon.png"
+}
