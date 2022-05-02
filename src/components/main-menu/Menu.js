@@ -1,6 +1,6 @@
 import { Lightning } from '@lightningjs/sdk';
-import { FONT_FAMILY } from '../constants/style';
-import MenuItem from './MenuItem';
+import { FONT_FAMILY } from '../../constants/style';
+import MenuItem from '../main-menu/MenuItem';
 
 export default class Menu extends Lightning.Component {
   static _template() {
@@ -50,5 +50,13 @@ export default class Menu extends Lightning.Component {
 
   _inactive() {
     this._blink.stop();
+  }
+
+  _handleUp() {
+    this._setIndex(Math.max(0, --this._index));
+  }
+
+  _handleDown() {
+    this._setIndex(Math.min(++this._index, this.items.length - 1));
   }
 }

@@ -1,5 +1,5 @@
 import { Lightning } from '@lightningjs/sdk';
-import Menu from '../components/Menu';
+import Menu from '../components/main-menu/Menu';
 
 export default class Main extends Lightning.Component {
   static _template() {
@@ -9,12 +9,20 @@ export default class Main extends Lightning.Component {
         y: 400,
         type: Menu,
         items: [
-          { label: 'START NEW GAME', action: 'start' },
-          // { label: 'CONTINUE', action: 'continue' },
-          // { label: 'ABOUT', action: 'about' },
-          { label: 'EXIT', action: 'exit' }
+          { label: 'New game', action: 'start' },
+          { label: 'Continue last game', action: 'continue' },
+          { label: 'About', action: 'about' },
+          { label: 'Exit', action: 'exit' }
         ]
       }
     };
+  }
+
+  _getFocused() {
+    return this.tag('Menu');
+  }
+
+  _handleEnter() {
+    this.signal('select', { item: this.tag('Menu').activeItem });
   }
 }

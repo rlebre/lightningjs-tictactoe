@@ -1,10 +1,7 @@
-import { Lightning, Utils } from '@lightningjs/sdk';
+import { Lightning } from '@lightningjs/sdk';
+import { FONT_FAMILY } from '../constants/style';
 
 export default class Game extends Lightning.Component {
-  static getFonts() {
-    return [{ family: 'Regular', url: Utils.asset('fonts/Roboto-Regular.ttf') }];
-  }
-
   static _template() {
     return {
       Game: {
@@ -34,11 +31,11 @@ export default class Game extends Lightning.Component {
           x: 100,
           y: 170,
           Player: {
-            text: { text: 'Player 0', fontSize: 29, fontFace: 'Regular' }
+            text: { text: 'Player 0', fontSize: 29, fontFace: FONT_FAMILY }
           },
           AI: {
             y: 40,
-            text: { text: 'Computer 0', fontSize: 29, fontFace: 'Regular' }
+            text: { text: 'Computer 0', fontSize: 29, fontFace: FONT_FAMILY }
           }
         }
       },
@@ -72,6 +69,7 @@ export default class Game extends Lightning.Component {
   }
 
   _handleUp() {
+    console.log('up');
     let idx = this._index;
     if (idx - 3 >= 0) {
       this._setIndex(idx - 3);
@@ -79,6 +77,7 @@ export default class Game extends Lightning.Component {
   }
 
   _handleDown() {
+    console.log('down');
     let idx = this._index;
     if (idx + 3 <= this._tiles.length - 1) {
       this._setIndex(idx + 3);
@@ -86,6 +85,7 @@ export default class Game extends Lightning.Component {
   }
 
   _handleLeft() {
+    console.log('left');
     let idx = this._index;
     if (idx % 3) {
       this._setIndex(idx - 1);
@@ -93,6 +93,7 @@ export default class Game extends Lightning.Component {
   }
 
   _handleRight() {
+    console.log('right');
     const newIndex = this._index + 1;
     if (newIndex % 3) {
       this._setIndex(newIndex);

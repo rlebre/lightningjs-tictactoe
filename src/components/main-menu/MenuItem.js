@@ -1,5 +1,5 @@
 import { Lightning } from '@lightningjs/sdk';
-import { FONT_FAMILY } from '../constants/style';
+import { FONT_FAMILY } from '../../constants/style';
 
 export default class MenuItem extends Lightning.Component {
   static _template() {
