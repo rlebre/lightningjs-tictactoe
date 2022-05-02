@@ -1,4 +1,5 @@
 import { Lightning, Utils } from '@lightningjs/sdk';
+import Fallback from './views/Fallback';
 import Splash from './views/Splash';
 
 export default class App extends Lightning.Component {
@@ -15,6 +16,10 @@ export default class App extends Lightning.Component {
       Splash: {
         type: Splash,
         signals: { loaded: true },
+        alpha: 0
+      },
+      Fallback: {
+        type: Fallback,
         alpha: 0
       }
     };
@@ -36,8 +41,17 @@ export default class App extends Lightning.Component {
         }
 
         loaded() {
-          // this._setState('Main');
-          console.log('loaded');
+          this._setState('Fallback');
+        }
+      },
+
+      class Fallback extends this {
+        $enter() {
+          this.tag('Fallback').setSmooth('alpha', 1);
+        }
+
+        $exit() {
+          this.tag('Fallback').setSmooth('alpha', 0);
         }
       }
     ];
