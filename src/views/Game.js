@@ -1,4 +1,5 @@
 import { Lightning } from '@lightningjs/sdk';
+import Logo from '../components/logo';
 import { FONT_FAMILY } from '../constants/style';
 import GameUtils from '../lib/GameUtils';
 
@@ -11,11 +12,13 @@ export default class Game extends Lightning.Component {
           w: 250,
           h: 250,
           color: 0x40ffffff,
-          x: 425,
-          y: 125
+          x: 625,
+          y: 125,
+          shader: { type: Lightning.shaders.RoundedRectangle, radius: 25 }
         },
+
         Field: {
-          x: 400,
+          x: 600,
           y: 100,
           children: [
             { rect: true, w: 1, h: 5, y: 300 },
@@ -24,26 +27,44 @@ export default class Game extends Lightning.Component {
             { rect: true, h: 1, w: 5, x: 600, y: 0 }
           ]
         },
+
         Markers: {
-          x: 400,
+          x: 600,
           y: 100
         },
+
+        Logo: {
+          type: Logo
+        },
+
         ScoreBoard: {
           x: 100,
-          y: 170,
-          text: { text: 'Score', fontSize: 29, fontFace: FONT_FAMILY },
+          y: 370,
+          text: { text: 'Score', fontSize: 29, fontFace: FONT_FAMILY, fontStyle: 'bold' },
 
           Player: {
             y: 50,
-            text: { text: 'Player 0', fontSize: 29, fontFace: FONT_FAMILY }
+            text: { text: 'Player 0', fontSize: 25, fontFace: FONT_FAMILY }
           },
 
           AI: {
             y: 100,
-            text: { text: 'Computer 0', fontSize: 29, fontFace: FONT_FAMILY }
+            text: { text: 'Computer 0', fontSize: 25, fontFace: FONT_FAMILY }
+          }
+        },
+
+        NextPlaying: {
+          x: 100,
+          y: 670,
+          text: { text: 'Next playing: ', fontSize: 22, fontFace: FONT_FAMILY, fontStyle: 'bold' },
+
+          Player: {
+            x: 130,
+            text: { text: 'Player', fontSize: 22, fontFace: FONT_FAMILY }
           }
         }
       },
+
       Notification: {
         x: 100,
         y: 170,
@@ -125,7 +146,7 @@ export default class Game extends Lightning.Component {
   _setIndex(idx) {
     this.tag('PlayerPosition').patch({
       smooth: {
-        x: (idx % 3) * 300 + 425,
+        x: (idx % 3) * 300 + 625,
         y: ~~(idx / 3) * 300 + 125
       }
     });
@@ -136,6 +157,16 @@ export default class Game extends Lightning.Component {
     return [
       class Computer extends this {
         $enter() {
+          this.patch({
+            Game: {
+              NextPlaying: {
+                Player: {
+                  text: { text: 'Computer' }
+                }
+              }
+            }
+          });
+
           const position = GameUtils.AI(this._tiles);
           if (position === -1) {
             this._setState('End.Tie');
@@ -154,6 +185,16 @@ export default class Game extends Lightning.Component {
         _captureKey() {}
 
         $exit() {
+          this.patch({
+            Game: {
+              NextPlaying: {
+                Player: {
+                  text: { text: 'Player' }
+                }
+              }
+            }
+          });
+
           this.tag('PlayerPosition').setSmooth('alpha', 1);
         }
       },

@@ -1,12 +1,23 @@
 import { Lightning } from '@lightningjs/sdk';
+import Logo from '../components/logo';
 import Menu from '../components/main-menu/Menu';
 
 export default class Main extends Lightning.Component {
   static _template() {
     return {
+      Logo: {
+        type: Logo,
+        mount: 0.5,
+        x: 960,
+        y: 300,
+        w: 300,
+        h: 300,
+        shader: { type: Lightning.shaders.FadeOut, fade: 20 }
+      },
+
       Menu: {
         x: 600,
-        y: 400,
+        y: 500,
         type: Menu,
         items: [
           { label: 'New game', action: 'start' },

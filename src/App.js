@@ -1,5 +1,6 @@
 import { Lightning, Utils } from '@lightningjs/sdk';
 import { FONT_FAMILY } from './constants/style';
+import About from './views/About';
 import Fallback from './views/Fallback';
 import Game from './views/Game';
 import Main from './views/Main';
@@ -13,9 +14,9 @@ export default class App extends Lightning.Component {
   static _template() {
     return {
       rect: true,
-      color: 0xff000000,
       w: 1920,
       h: 1080,
+      src: Utils.asset('images/background.png'),
 
       Splash: {
         type: Splash,
@@ -36,6 +37,11 @@ export default class App extends Lightning.Component {
 
       Game: {
         type: Game,
+        alpha: 0
+      },
+
+      About: {
+        type: About,
         alpha: 0
       }
     };
@@ -82,6 +88,10 @@ export default class App extends Lightning.Component {
           this._setState('Game');
         }
 
+        about() {
+          this._setState('About');
+        }
+
         menuSelect({ item }) {
           if (this._hasMethod(item.action)) {
             return this[item.action]();
@@ -119,7 +129,29 @@ export default class App extends Lightning.Component {
         }
 
         _handleEnter() {
-          this._setState('Splash');
+          this._setState('Main');
+        }
+
+        _handleLast() {
+          this._setState('Main');
+        }
+      },
+
+      class About extends this {
+        $enter() {
+          this.tag('About').setSmooth('alpha', 1);
+        }
+
+        $exit() {
+          this.tag('About').setSmooth('alpha', 0);
+        }
+
+        _handleEnter() {
+          this._setState('Main');
+        }
+
+        _handleLast() {
+          this._setState('Main');
         }
       }
     ];

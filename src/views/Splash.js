@@ -20,7 +20,7 @@ export default class Splash extends Lightning.Component {
     // create animation and store a reference, so we can start / stop / pause in the fututre
     this._pulse = this.tag('Logo').animation({
       // duration: 3,
-      duration: 0.3,
+      duration: 1,
       repeat: 1,
       actions: [{ p: 'alpha', v: { 0: 0, 0.5: 1, 1: 0 } }]
     });
