@@ -1,3 +1,5 @@
+<img src="https://github.com/rlebre/lightningjs-tictactoe/blob/main/static/logo.png" alt="logo" width="300"/>
+
 # Tic Tac Toe
 
 This app was created using LightningJS. You may play the Tic Tac Toe game ([Wikipedia](https://en.wikipedia.org/wiki/Tic-tac-toe)) in your browser using the arrow keys and return key. Additionally, you may also compile is to your SmartTV and play with the remote.
@@ -7,7 +9,7 @@ Special thanks to @rdkcentral for providing this tutorial - available at https:/
 ### Getting started
 
 > Before you follow the steps below, make sure you have the
-[Lightning-CLI](https://rdkcentral.github.io/Lightning-CLI/#/) installed _globally_ only your system
+[Lightning-CLI](https://rdkcentral.github.io/Lightning-CLI/) installed _globally_ only your system
 
 ```
 npm install -g @lightningjs/cli
