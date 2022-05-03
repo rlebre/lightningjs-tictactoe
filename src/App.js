@@ -37,7 +37,8 @@ export default class App extends Lightning.Component {
 
       Game: {
         type: Game,
-        alpha: 0
+        alpha: 0,
+        signals: { back: 'back' }
       },
 
       About: {
@@ -92,6 +93,10 @@ export default class App extends Lightning.Component {
           this._setState('About');
         }
 
+        exit() {
+          this.application.closeApp();
+        }
+
         menuSelect({ item }) {
           if (this._hasMethod(item.action)) {
             return this[item.action]();
@@ -113,6 +118,10 @@ export default class App extends Lightning.Component {
         _getFocused() {
           return this.tag('Game');
         }
+
+        back() {
+          this._setState('Main');
+        }
       },
 
       class Fallback extends this {
@@ -132,7 +141,7 @@ export default class App extends Lightning.Component {
           this._setState('Main');
         }
 
-        _handleLast() {
+        _handleMenu() {
           this._setState('Main');
         }
       },
@@ -150,7 +159,7 @@ export default class App extends Lightning.Component {
           this._setState('Main');
         }
 
-        _handleLast() {
+        _handleMenu() {
           this._setState('Main');
         }
       }

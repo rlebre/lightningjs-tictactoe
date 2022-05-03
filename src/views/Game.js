@@ -130,6 +130,10 @@ export default class Game extends Lightning.Component {
     }
   }
 
+  _handleMenu() {
+    this.signal('back');
+  }
+
   place(index, marker) {
     this._tiles[index] = marker;
     this.render(this._tiles);
