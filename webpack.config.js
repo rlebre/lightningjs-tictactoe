@@ -1,10 +1,17 @@
-const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const path = require('path');
 
 const plugins = [
   new HtmlWebpackPlugin({
     template: 'public/index.html'
+  }),
+  new CopyWebpackPlugin({
+    patterns: [
+      { from: path.resolve(__dirname, './public/images'), to: 'images' },
+      { from: path.resolve(__dirname, './public/fonts'), to: 'fonts' },
+      { from: path.resolve(__dirname, './public/logo.png'), to: 'logo.png' }
+    ]
   })
 ];
 
@@ -12,7 +19,8 @@ const config = {
   entry: ['./src/index.js'],
   mode: 'development',
   output: {
-    path: path.resolve(__dirname, 'dist')
+    path: path.resolve(__dirname, 'dist'),
+    filename: 'bundle.js'
   },
   devServer: {
     open: true,
@@ -28,8 +36,12 @@ const config = {
         exclude: /node_modules/
       },
       {
-        test: /\.(eot|svg|ttf|woff|woff2|png|jpg|gif)$/i,
-        type: 'asset'
+        test: /\.(png|svg|jpg|jpeg|gif)$/i,
+        type: 'asset/resource'
+      },
+      {
+        test: /\.(woff|woff2|eot|ttf|otf)$/i,
+        type: 'asset/resource'
       }
     ]
   },
