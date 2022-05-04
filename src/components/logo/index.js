@@ -1,4 +1,4 @@
-import { Lightning, Utils } from '@lightningjs/sdk';
+import { Lightning } from '@lightningjs/sdk';
 
 export default class Logo extends Lightning.Component {
   static _template() {
@@ -7,7 +7,7 @@ export default class Logo extends Lightning.Component {
       y: 100,
       w: 200,
       h: 200,
-      src: Utils.asset('logo.png')
+      src: 'logo.png'
       // texture: { type: Lightning.textures.ImageTexture, src: Utils.asset('logo2.svg') },
     };
   }

@@ -1,4 +1,4 @@
-import { Lightning, Utils } from '@lightningjs/sdk';
+import { Lightning } from '@lightningjs/sdk';
 
 export default class Instructions extends Lightning.Component {
   static _template() {
@@ -16,7 +16,7 @@ export default class Instructions extends Lightning.Component {
           y: 30,
           w: 100,
           h: 55,
-          src: Utils.asset('images/arrows.png')
+          src: 'images/arrows.png'
         },
 
         Return: {
@@ -24,7 +24,7 @@ export default class Instructions extends Lightning.Component {
           y: 50,
           w: 30,
           h: 30,
-          src: Utils.asset('images/return.png')
+          src: 'images/return.png'
         },
 
         Esc: {
@@ -32,7 +32,7 @@ export default class Instructions extends Lightning.Component {
           y: 50,
           w: 30,
           h: 30,
-          src: Utils.asset('images/esc.png')
+          src: 'images/esc.png'
         }
       }
     };

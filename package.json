@@ -1,12 +1,17 @@
 {
   "name": "com.ruilebre.tictactoe",
   "description": "Tic Tac Toe game built with LightningJS",
+  "version": "0.0.1",
+  "author": {
+    "name": "Rui Lebre",
+    "email": "ruiandrelebre@gmail.com",
+    "url": "https://ruilebre.com"
+  },
   "license": "MIT",
   "scripts": {
-    "dev": "lng dev",
     "start": "lng start",
-    "build": "lng build",
-    "dist": "lng dist"
+    "dev": "webpack serve",
+    "build": "webpack"
   },
   "dependencies": {
     "@lightningjs/sdk": "^4.8.3"
@@ -17,9 +22,13 @@
     "eslint": "^6.6.0",
     "eslint-config-prettier": "^6.7.0",
     "eslint-plugin-prettier": "^3.1.1",
+    "html-webpack-plugin": "^5.5.0",
     "husky": "^3.1.0",
     "lint-staged": "^9.4.3",
-    "prettier": "^1.19.1"
+    "prettier": "^1.19.1",
+    "webpack": "^5.72.0",
+    "webpack-cli": "^4.9.2",
+    "webpack-dev-server": "^4.8.1"
   },
   "lint-staged": {
     "*.js": [

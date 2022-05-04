@@ -1,8 +1,11 @@
 import { Lightning } from '@lightningjs/sdk';
 import Logo from '../components/logo';
 import Menu from '../components/main-menu/Menu';
-
 export default class Main extends Lightning.Component {
+  // getFonts() {
+  //   return [{ family: FONT_FAMILY, url: 'fonts/Roboto-Regular.ttf' }];
+  // }
+
   static _template() {
     return {
       Logo: {
