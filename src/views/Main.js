@@ -16,8 +16,8 @@ export default class Main extends Lightning.Component {
       },
 
       Menu: {
-        x: 600,
-        y: 500,
+        x: 800,
+        y: 600,
         type: Menu,
         items: [
           { label: 'New Game', action: 'start' },
