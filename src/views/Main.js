@@ -20,8 +20,8 @@ export default class Main extends Lightning.Component {
         y: 500,
         type: Menu,
         items: [
-          { label: 'New game', action: 'start' },
-          { label: 'Continue last game', action: 'continue' },
+          { label: 'New Game', action: 'start' },
+          { label: 'Continue Last Game', action: 'continue' },
           { label: 'About', action: 'about' },
           { label: 'Exit', action: 'exit' }
         ]
