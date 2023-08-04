@@ -56,11 +56,11 @@ export default class Game extends Lightning.Component {
         NextPlaying: {
           x: 100,
           y: 670,
-          text: { text: 'Next playing: ', fontSize: 22, fontFace: FONT_FAMILY, fontStyle: 'bold' },
+          text: { text: 'Next playing:      ', fontSize: 18, fontFace: FONT_FAMILY },
 
           Player: {
             x: 130,
-            text: { text: 'Player', fontSize: 22, fontFace: FONT_FAMILY }
+            text: { text: '  Player', fontSize: 18, fontFace: FONT_FAMILY }
           }
         }
       },
@@ -131,6 +131,10 @@ export default class Game extends Lightning.Component {
   }
 
   _handleMenu() {
+    this.signal('back');
+  }
+
+  _handleBack() {
     this.signal('back');
   }
 
@@ -238,7 +242,7 @@ export default class Game extends Lightning.Component {
                     }
                   },
                   Notification: {
-                    text: { text: `${winner === 'X' ? 'Player' : 'Computer'} wins (press enter to play again)` },
+                    text: { text: `${winner === 'X' ? 'Player 1' : 'Computer'} wins (press enter to play again)` },
                     smooth: { alpha: 1 }
                   }
                 });
