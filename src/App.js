@@ -9,10 +9,11 @@ import Splash from './views/Splash';
 
 export default class App extends Lightning.Component {
   static getFonts() {
-    return [{ family: FONT_FAMILY, url: Utils.asset('fonts/Roboto-Regular.ttf') }];
+    return [{ family: FONT_FAMILY, url: Utils.asset('fonts/PumpOpti-Medium.otf') }];
   }
 
   static _template() {
+    console.log('started');
     return {
       rect: true,
       w: 1920,
@@ -155,6 +156,10 @@ export default class App extends Lightning.Component {
         _handleMenu() {
           this._setState('Main');
         }
+
+        _handleBack() {
+          this._setState('Main');
+        }
       },
 
       class About extends this {
@@ -171,6 +176,9 @@ export default class App extends Lightning.Component {
         }
 
         _handleMenu() {
+          this._setState('Main');
+        }
+        _handleBack() {
           this._setState('Main');
         }
       }
