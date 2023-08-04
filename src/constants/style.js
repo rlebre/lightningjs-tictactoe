@@ -1,1 +1,1 @@
-export const FONT_FAMILY = 'Roboto-Regular';
+export const FONT_FAMILY = 'PumpOpti-Medium';
