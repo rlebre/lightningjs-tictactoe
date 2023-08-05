@@ -18,7 +18,7 @@ export default class App extends Lightning.Component {
       rect: true,
       w: 1920,
       h: 1080,
-      src: Utils.asset('images/background.png'),
+      src: Utils.asset('images/lua-background.png'),
       zIndex: -10,
 
       Instructions: {

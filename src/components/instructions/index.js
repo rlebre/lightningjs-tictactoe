@@ -16,7 +16,7 @@ export default class Instructions extends Lightning.Component {
           y: 30,
           w: 100,
           h: 55,
-          src: 'images/arrows.png'
+          src: 'images/lua-remote-arrows.png'
         },
 
         Return: {
@@ -24,7 +24,7 @@ export default class Instructions extends Lightning.Component {
           y: 50,
           w: 30,
           h: 30,
-          src: 'images/return.png'
+          src: 'images/lua-remote-select.png'
         },
 
         Esc: {
@@ -32,7 +32,7 @@ export default class Instructions extends Lightning.Component {
           y: 50,
           w: 30,
           h: 30,
-          src: 'images/esc.png'
+          src: 'images/lua-remote-back.png'
         }
       }
     };
